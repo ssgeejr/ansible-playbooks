@@ -42,4 +42,4 @@ cat << EOF > /etc/ansible/roles/$1/vars/main.yml
 EOF
 
 echo "----------------------------------------------"
-echo "[Success] new group skeleton created"
+echo "[Success] role $1 created"
