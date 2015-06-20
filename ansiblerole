@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#create ansible role directory with skeleton stubs
+
+if [ -z $1 ]; then
+  echo 'No repository name provided'
+  exit 1
+fi
+echo "----------------------------------------------"
+echo "Creating Role skeleton: $1"
+echo "Creating directory: /etc/ansible/roles/$1"
+mkdir /etc/ansible/roles/$1
+echo "Creating directory: /etc/ansible/roles/$1/files"
+mkdir /etc/ansible/roles/$1/files
+echo "Creating directory: /etc/ansible/roles/$1/tasks"
+mkdir /etc/ansible/roles/$1/tasks
+echo "Creating directory: /etc/ansible/roles/$1/vars"
+mkdir /etc/ansible/roles/$1/vars
+
+echo "Creating file: /etc/ansible/roles/$1/files/skeleton_file"
+cat << EOF > /etc/ansible/roles/$1/files/skeleton_file
+#add contents to be copied to target server here
+#this file will be referenced by: $1/tasks/main.yml
+EOF
+
+echo "Creating file: /etc/ansible/roles/$1/tasks/main.yml"
+cat << EOF > /etc/ansible/roles/$1/tasks/main.yml
+#- name: <description>
+#  group: <command>
+
+#- name: <description>
+#  group: <command>
+EOF
+
+echo "Creating file: /etc/ansible/roles/$1/vars/main.yml"
+cat << EOF > /etc/ansible/roles/$1/vars/main.yml
+#this file will be referenced by: $1/tasks/main.yml
+#<group>:
+#  <subgroup>:
+#    <key>: <value>
+#    <key>: <value>
+EOF
+
+echo "----------------------------------------------"
+echo "[Success] new group skeleton created"
