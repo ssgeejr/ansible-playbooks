@@ -13,11 +13,11 @@
      state={{item.value.state}} 
      createhome=yes 
      group=devops
-  with_dict: scm-devops-users
+  with_dict: scm_devops_users
 
 - name: Push user pub keys to authorized_keys 
   authorized_key: 
      user="{{item.value.username}}" 
      key="{{item.value.key}}"
-  with_dict: scm-devops-users
+  with_dict: scm_devops_users
 

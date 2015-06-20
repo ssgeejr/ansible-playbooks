@@ -1,4 +1,4 @@
-scm-devops-users:
+scm_devops_users:
   ioexcept:
     username: ioexcept
     key: "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAuuegyb0QwZsa1xLE2jO8JMyFEaG0MY2JZzXWdvu9NdstIgCmdMpyBXp4L3baHsl2+7xd567rzrDlxL6famtxWLkYVQ+GJ7LdxNogrI/RkvqcVVjSTK6rbcMNE6bkOQ3CFGT49NN7PQNGUcRP0BoGTv9mwMF/CwwKjWF+NMG8UE8="
