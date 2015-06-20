@@ -1,0 +1,23 @@
+- name: Create the devops group
+  group: name=devops
+
+- name: Copy the new devops sudo file to target
+  copy: src=sudo-devops 
+     dest=/etc/sudoers.d/scm-devops 
+     mode=0400
+
+- name: Add scm-devops users.
+  user: user={{item.value.username}} 
+     shell={{item.value.shell}} 
+     comment={{item.value.comment}} 
+     state={{item.value.state}} 
+     createhome=yes 
+     group=devops
+  with_dict: scm-devops-users
+
+- name: Push user pub keys to authorized_keys 
+  authorized_key: 
+     user="{{item.value.username}}" 
+     key="{{item.value.key}}"
+  with_dict: scm-devops-users
+
