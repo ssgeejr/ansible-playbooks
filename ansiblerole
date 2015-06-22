@@ -2,29 +2,57 @@
 
 #create ansible role directory with skeleton stubs
 
+ANSIBLE_CFG=/etc/ansible
+ANSIBLE_HOME=$ANSIBLE_CFG/roles
+
+if [ ! -d "$ANSIBLE_HOME" ]; then
+  echo "Error: Could not find roles directory: $ANSIBLE_HOME"
+  echo "Exiting ... "
+  exit 1
+fi
+
+
 if [ -z $1 ]; then
   echo 'No repository name provided'
   exit 1
 fi
-echo "----------------------------------------------"
-echo "Creating Role skeleton: $1"
-echo "Creating directory: /etc/ansible/roles/$1"
-mkdir /etc/ansible/roles/$1
-echo "Creating directory: /etc/ansible/roles/$1/files"
-mkdir /etc/ansible/roles/$1/files
-echo "Creating directory: /etc/ansible/roles/$1/tasks"
-mkdir /etc/ansible/roles/$1/tasks
-echo "Creating directory: /etc/ansible/roles/$1/vars"
-mkdir /etc/ansible/roles/$1/vars
 
-echo "Creating file: /etc/ansible/roles/$1/files/skeleton_file"
-cat << EOF > /etc/ansible/roles/$1/files/skeleton_file
+
+echo "----------------------------------------------"
+echo "Creating Role  project structure for: $1"
+
+echo "Creating host file: $ANSIBLE_CFG/$1.yml"
+cat << EOF > $ANSIBLE_CFG/$1.yml
+- hosts: <name>
+  sudo: <yes|no>
+  remote_user: <username>
+
+  roles:
+    - $1
+EOF
+
+echo "Creating directory: $ANSIBLE_HOME/$1"
+mkdir $ANSIBLE_HOME/$1
+
+#FILES / SKELETON_FILE
+echo "Creating directory: $ANSIBLE_HOME/$1/files"
+mkdir $ANSIBLE_HOME/$1/files
+echo "Creating file: $ANSIBLE_HOME/$1/files/skeleton_file"
+cat << EOF > $ANSIBLE_HOME/$1/files/skeleton_file
 #add contents to be copied to target server here
 #this file will be referenced by: $1/tasks/main.yml
 EOF
 
-echo "Creating file: /etc/ansible/roles/$1/tasks/main.yml"
-cat << EOF > /etc/ansible/roles/$1/tasks/main.yml
+#TEMPLATES
+echo "Creating directory: $ANSIBLE_HOME/$1/templates"
+mkdir $ANSIBLE_HOME/$1/templates
+
+
+#TASKS / MAIN.YML
+echo "Creating directory: $ANSIBLE_HOME/$1/tasks"
+mkdir $ANSIBLE_HOME/$1/tasks
+echo "Creating file: $ANSIBLE_HOME/$1/tasks/main.yml"
+cat << EOF > $ANSIBLE_HOME/$1/tasks/main.yml
 #- name: <description>
 #  group: <command>
 
@@ -32,13 +60,41 @@ cat << EOF > /etc/ansible/roles/$1/tasks/main.yml
 #  group: <command>
 EOF
 
-echo "Creating file: /etc/ansible/roles/$1/vars/main.yml"
-cat << EOF > /etc/ansible/roles/$1/vars/main.yml
+#HANDLERS / MAIN.YML
+echo "Creating directory: $ANSIBLE_HOME/$1/handlers"
+mkdir $ANSIBLE_HOME/$1/handlers
+echo "Creating file: $ANSIBLE_HOME/$1/handlers/main.yml"
+cat << EOF > $ANSIBLE_HOME/$1/handlers/main.yml
+#cd /to/some/directory
+#cp file /to/another/directory
+EOF
+
+
+#VARS / MAIN.YML
+echo "Creating directory: $ANSIBLE_HOME/$1/vars"
+mkdir $ANSIBLE_HOME/$1/vars
+echo "Creating file: $ANSIBLE_HOME/$1/vars/main.yml"
+cat << EOF > $ANSIBLE_HOME/$1/vars/main.yml
 #this file will be referenced by: $1/tasks/main.yml
-#<group>:
-#  <subgroup>:
+#<dictonary>:
+#  <sub-key>:
 #    <key>: <value>
 #    <key>: <value>
+EOF
+
+#DEFAULTS
+echo "Creating directory: $ANSIBLE_HOME/$1/defaults"
+mkdir $ANSIBLE_HOME/$1/defaults
+
+
+#META / MAIN.YML
+echo "Creating directory: $ANSIBLE_HOME/$1/meta"
+mkdir $ANSIBLE_HOME/$1/meta
+echo "Creating file: $ANSIBLE_HOME/$1/meta/main.yml"
+cat << EOF > $ANSIBLE_HOME/$1/meta/main.yml
+#---
+#dependencies:
+#  - { role: <some-role> }
 EOF
 
 echo "----------------------------------------------"
