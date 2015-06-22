@@ -38,7 +38,8 @@ Directories and files created:
    
    
 #### To use: 
-From the command line, *after the script is added to your path*, execute: ansiblerole <role_name>
+From the command line execute: ansiblerole <role_name>
+
 **ansiblerole adduser**
 
 ```
