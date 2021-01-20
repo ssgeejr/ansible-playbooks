@@ -1,5 +1,8 @@
 # Ansible
 
+
+ansible-playbook  all.yml -i inventory_dir/inventory-d.yml  -t jenkins-docker --ask-vault-pass
+
 #### Role bootstrap script
 ansiblerole is a simple script to create an ansible playbook skeleton.
 add the file to your path, enable execute (set +x /usr/local/bin/ansiblerole)
